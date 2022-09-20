@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css">
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <!--SWEETALERT-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!--Bootstrap 5.2-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <!--Box Icons-->
+    <link href='https://unpkg.com/boxicons@2.1.3/css/boxicons.min.css' rel='stylesheet'>
+    <script src="main.js"></script>
+</head>
+
+<body id="body-background">
+    <div class="container">
+        <div class="header">
+            <nav class="navbar bg-light">
+                <div class="container-fluid">
+                    <span class="navbar-brand mb-0 h1">CRUD Usuário</span>
+                    <button class="btn btn-"></button>
+                    <form class="d-flex" id="form-filtro" role="search">
+                        <input class="form-control me-2" type="text" name="filtro" id="filtro" placeholder="Nome..."
+                            aria-label="Search">
+                        <button class="btn btn-outline-success" type="button" onclick="buscar();">Buscar</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="listar();"><span class="bx bx-eraser"></span></button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <br />
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-2 float-end">
+                            <button class="btn btn-primary float-end" onclick="adicionar();">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th style="white-space:nowrap;width: 10%;text-align: center;">Matricula</th>
+                                    <th style="white-space:nowrap;width: 15%;">Nome</th>
+                                    <th style="white-space:nowrap;width: 10%;text-align: center;">Data de Nasc.</th>
+                                    <th style="white-space:nowrap;width: 10%;">E-mail</th>
+                                    <th style="white-space:nowrap;width: 5%;text-align: center;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-usuarios">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="titulo" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titulo"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-avancado">
+                            <input type="hidden" id="id">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="name">
+                                        <span class="label">Nome</span>
+                                        <span class="focus-bg"></span>
+                                    </label>
+                                    <input class="form-control" type="text" id="name" name="name" placeholder="Nome" required>
+                                </div>
+                                <div class="col-4">
+                                    <label for="birthday">
+                                        <span class="label">Data Nascimento</span>
+                                        <span class="focus-bg"></span>
+                                    </label>
+                                    <input class="form-control" type="date" id="birthday" name="birthday" required>
+                                </div>
+                                <div class="col-4">
+                                    <label for="email">
+                                        <span class="label">E-mail</span>
+                                        <span class="focus-bg"></span>
+                                    </label>
+                                    <input class="form-control" type="email" id="email" name="email" placeholder="e-mail" required>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="password">
+                                        <span class="label">Senha</span>
+                                        <span class="focus-bg"></span>
+                                    </label>
+                                    <input class="form-control" type="password" id="password" name="password" placeholder="senha">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" id="salvar" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
