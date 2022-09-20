@@ -13,7 +13,7 @@ function buscar() {
         data: { "filtro": filtro },
         success: function (response) {
             $("#table-usuarios tr").remove();
-            response.map(el => 
+            response.map(el =>
                 $("#table-usuarios").append(
                     "<tr>" +
                     "<td style=\"text-align:center;\">" + el.matricula + "</td>" +
@@ -26,7 +26,7 @@ function buscar() {
                     "</td>" +
                     "</tr>"
                 )
-            );    
+            );
         }, error: function () {
             swal("Index", 'Não foi possivel listar os usuários cadastrados.', "error");
         }
@@ -45,7 +45,7 @@ function listar() {
         data: {},
         success: function (response) {
             $("#table-usuarios tr").remove();
-            response.map(el => 
+            response.map(el =>
                 $("#table-usuarios").append(
                     "<tr>" +
                     "<td style=\"text-align:center;\">" + el.matricula + "</td>" +
@@ -58,7 +58,7 @@ function listar() {
                     "</td>" +
                     "</tr>"
                 )
-            );  
+            );
         }, error: function () {
             swal("Index", 'Não foi possivel listar os usuários cadastrados.', "error");
         }
@@ -71,6 +71,12 @@ function listar() {
 
 function adicionar() {
     $("#titulo").text('Cadastrar Usuário');
+    $("#titulo").text('Editar Usuário');
+    $("#name").val(null);
+    $("#birthday").val(null);
+    $("#email").val(null);
+    $("#id").val(null);
+    $("#password").val(null);
     $("#myModal").modal("show");
     var element = document.getElementById("salvar");
     element.onclick = function (event) {
@@ -88,16 +94,11 @@ function salvar() {
         success: function (data) {
             if (data.success === true) {
                 $("#myModal").modal('toggle');
-                setTimeout(function () {
-                    swal({
-                        text: response.msg,
-                        icon: "success",
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then((result) => {
-                        listar();
-                    });
-                }, 600);
+                swal({
+                    text: data.msg,
+                    icon: "success",
+                    timer: 2000,
+                });
             } else {
                 if (data.validate === true) {
                     var erros = data.msg;
@@ -123,6 +124,7 @@ function salvar() {
             swal("Store", "Sem permissão para acessar essa funcionalidade.", "error");
         }
     });
+    listar();
 }
 
 function update(id) {
@@ -134,15 +136,11 @@ function update(id) {
         success: function (data) {
             if (data.success === true) {
                 $("#myModal").modal('toggle');
-                setTimeout(function () {
-                    swal({
-                        text: response.msg,
-                        icon: "success",
-                        timer: 2000
-                    }).then((result) => {
-                        listar();
-                    });
-                }, 600);
+                swal({
+                    text: data.msg,
+                    icon: "success",
+                    timer: 2000,
+                });
             } else {
                 if (data.validate === true) {
                     var erros = data.msg;
@@ -167,6 +165,7 @@ function update(id) {
             swal("Update", "Sem permissão para acessar essa funcionalidade.", "error");
         }
     });
+    listar();
 }
 
 function edit(id) {
@@ -177,6 +176,7 @@ function edit(id) {
         $("#birthday").val(response.birthday);
         $("#email").val(response.email);
         $("#id").val(response.id);
+        $("#password").val("");
         $("#myModal").modal("show");
         var element = document.getElementById("salvar");
         element.onclick = function (event) {
@@ -275,10 +275,10 @@ function validateErrors(erros, key, type) {
         }
 
         // Não adiciona marcação se o campo for disabled ou readonly
-        if($("form input[name=" + index + "]:disabled, form input[name=" + index + "][readonly]").length > 0){
+        if ($("form input[name=" + index + "]:disabled, form input[name=" + index + "][readonly]").length > 0) {
             return;
         }
-        if($("form textarea[name=" + index + "]:disabled, form textarea[name=" + index + "][readonly]").length > 0){
+        if ($("form textarea[name=" + index + "]:disabled, form textarea[name=" + index + "][readonly]").length > 0) {
             return;
         }
 
@@ -303,7 +303,7 @@ function validateErrors(erros, key, type) {
             "color": "" + color + ""
         });
 
-        if ($("form input[name=" + index + "]").length > 0){
+        if ($("form input[name=" + index + "]").length > 0) {
 
             $("form input[name=" + index + "]").attr('data-toggle', "tooltip");
             $("form input[name=" + index + "]").attr('data-placement', "bottom");
@@ -311,7 +311,7 @@ function validateErrors(erros, key, type) {
             $("form input[name=" + index + "]").unbind("focusin");
 
         }
-        if ($("form select[name=" + index + "]")){
+        if ($("form select[name=" + index + "]")) {
 
             $("form select[name=" + index + "]").attr('data-toggle', "tooltip");
             $("form select[name=" + index + "]").attr('data-placement', "bottom");
@@ -344,7 +344,7 @@ function validateErrors(erros, key, type) {
 
         });
 
-        $("form .checkboxFiveInput label").click(function(){
+        $("form .checkboxFiveInput label").click(function () {
             $(this).parent().parent().parent().find("input[type=text]").focus();
         });
 
